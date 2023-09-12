@@ -9,7 +9,7 @@ using Microsoft.Extensions.Options;
 namespace HackerNews.Api.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("best-stories")]
 public class StoryController : ControllerBase
 {
     private readonly IMapper _mapper;
@@ -30,7 +30,7 @@ public class StoryController : ControllerBase
     }
 
     [HttpGet("{count:int}")]
-    public async Task<IEnumerable<StoryResponseDto>> Get(int count)
+    public async Task<IEnumerable<StoryResponseDto>> GetBestStories(int count)
     {
         if (_memoryCache.TryGetValue<List<StoryResponseDto>>(CacheKeys.BestStoriesDetailed, out var dtos)
             && dtos.Count >= count)
