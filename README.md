@@ -1,6 +1,6 @@
 # HackerNewsApi
 
-How to start:
+How to run:
 1) Open folder with solution
 2) `docker compose up`
 3) Open: http://localhost:5000/swagger/index.html
