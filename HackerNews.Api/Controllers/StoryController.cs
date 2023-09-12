@@ -30,12 +30,17 @@ public class StoryController : ControllerBase
     }
 
     [HttpGet("{count:int}")]
-    public async Task<IEnumerable<StoryResponseDto>> GetBestStories(int count)
+    public async Task<ActionResult> GetBestStories(int count)
     {
+        if (count <= 0)
+        {
+            return BadRequest(new { ErrorMessage = "Count should have positive value" });
+        }
+
         if (_memoryCache.TryGetValue<List<StoryResponseDto>>(CacheKeys.BestStoriesDetailed, out var dtos)
             && dtos.Count >= count)
         {
-            return dtos.Take(count);
+            return Ok(dtos.Take(count));
         }
 
         var bestStoriesDetailed = await _hackerNewsService.GetBestStories(count);
@@ -43,6 +48,6 @@ public class StoryController : ControllerBase
         dtos = _mapper.Map<List<StoryResponseDto>>(bestStoriesDetailed);
         _memoryCache.Set(CacheKeys.BestStoriesDetailed, dtos, TimeSpan.FromSeconds(_cacheOptions.QueryResultTtlInSeconds));
 
-        return dtos;
+        return Ok(dtos);
     }
 }
