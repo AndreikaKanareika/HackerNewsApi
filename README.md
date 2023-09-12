@@ -1,9 +1,9 @@
 # HackerNewsApi
 
 How to run:
-1) Open folder with solution
-2) `docker compose up`
-3) Open: http://localhost:5000/swagger/index.html
+1) Open folder with solution in command line
+2) Run command: `docker compose up`
+3) Open: http://localhost:5000/swagger/index.html in browser
 
 Suggestion for improvement:
 1) Algorithm of caching and detecting expired records can be improved
